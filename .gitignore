@@ -1,0 +1,8 @@
+.idea
+/venv/
+*.jpg
+*.jpeg
+*.png
+.cache
+*.json
+user_link.txt
