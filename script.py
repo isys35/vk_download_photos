@@ -25,7 +25,7 @@ def get_users_links(file_path: str):
     return user_link_data
 
 
-def save_photo(username: str, image_url: str, path_dir_images:str):
+def save_photo(username: str, image_url: str, path_dir_images: str):
     image_name_search = re.search('.+/(.+\.jpg)\?', image_url)
     if image_name_search:
         image_name = image_name_search.group(1)
@@ -49,8 +49,11 @@ def main(file_links: str, path_dir_images: str):
     for user_link in users_links:
         user_link = user_link.strip()
         print(f'{user_link} downloading images ...')
-        username = user_link.split('/')[-1]
-        users = vk.users.get(user_ids=[username])
+        username = user_link.split('/')[-1].strip()
+        try:
+            users = vk.users.get(user_ids=[username])
+        except vk_api.ApiError:
+            continue
         if users:
             user_id = users[-1]['id']
             try:
